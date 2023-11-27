@@ -51,6 +51,8 @@ const BlogForm = ({editing}) => {
     }
 
     const validateForm = () => {
+        setTitleError(false);
+        setBodyError(false);
         let validateed = true;
         if (title === '') {
             setTitleError(true);
@@ -64,8 +66,6 @@ const BlogForm = ({editing}) => {
     }
 
     const onSubmit = () => {
-        setTitleError(false);
-        setBodyError(false);
         if (validateForm()) {
             if (editing) { // update
                 axios.patch(`http://localhost:3001/posts/${id}`, {
