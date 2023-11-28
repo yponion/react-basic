@@ -53,16 +53,16 @@ const BlogForm = ({editing}) => {
     const validateForm = () => {
         setTitleError(false);
         setBodyError(false);
-        let validateed = true;
+        let validated = true;
         if (title === '') {
             setTitleError(true);
-            validateed = false;
+            validated = false;
         }
         if (body === '') {
             setBodyError(true);
-            validateed = false;
+            validated = false;
         }
-        return validateed;
+        return validated;
     }
 
     const onSubmit = () => {
@@ -85,7 +85,11 @@ const BlogForm = ({editing}) => {
                     publish,
                     createdAt: Date.now()
                 }).then(() => {
-                    history.push('/admin');
+                    addToast({
+                        type: 'success',
+                        text: 'Successfully creaded!'
+                    })
+                    // history.push('/admin');
                 })
             }
         }
@@ -154,7 +158,7 @@ const BlogForm = ({editing}) => {
     )
 };
 
-BlogForm.protoType = {
+BlogForm.propType = {
     editing: propTypes.bool // 수정인지 확인하기 위해 선언한 editing 타입을 bool으로
 }
 BlogForm.defaultProps = {

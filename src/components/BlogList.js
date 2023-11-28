@@ -5,6 +5,7 @@ import {useHistory, useLocation} from "react-router-dom";
 import LoadingSpinner from "../components/LoadingSpinner";
 import propTypes from "prop-types";
 import Pagination from "./Pagination";
+import useToast from "../hooks/toast";
 
 const BlogList = ({isAdmin}) => {
 
@@ -18,6 +19,7 @@ const BlogList = ({isAdmin}) => {
     const [numberOfPosts, setNumberOfPosts] = useState(0);
     const [numberOfPages, setNumberOfPages] = useState(0);
     const [searchText, setSearchText] = useState('');
+    const {addToast} = useToast();
     const limit = 5;
 
     useEffect(() => {
@@ -59,7 +61,11 @@ const BlogList = ({isAdmin}) => {
     const deleteBlog = (e, id) => {
         e.stopPropagation();
         axios.delete(`http://localhost:3001/posts/${id}`).then(() => {
-            setPosts(prevPosts => prevPosts.filter(post => post.id !== id))
+            setPosts(prevPosts => prevPosts.filter(post => post.id !== id));
+            addToast({
+                text: 'Successfully deleted',
+                type: 'success'
+            });
         });
     }
 

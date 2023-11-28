@@ -1,13 +1,6 @@
 {
   "posts": [
     {
-      "title": "d",
-      "body": "d",
-      "publish": true,
-      "createdAt": 1701004880990,
-      "id": 1
-    },
-    {
       "title": "f",
       "body": "f",
       "publish": true,
@@ -20,13 +13,6 @@
       "publish": false,
       "createdAt": 1701005331561,
       "id": 3
-    },
-    {
-      "title": "gg",
-      "body": "g2",
-      "publish": false,
-      "createdAt": 1701005331561,
-      "id": 4
     },
     {
       "title": "gg",
@@ -47,140 +33,21 @@
       "body": "g2",
       "publish": false,
       "createdAt": 1701005331561,
-      "id": 7
-    },
-    {
-      "title": "gg",
-      "body": "g2",
-      "publish": false,
-      "createdAt": 1701005331561,
-      "id": 8
-    },
-    {
-      "title": "gg",
-      "body": "g2",
-      "publish": false,
-      "createdAt": 1701005331561,
-      "id": 9
-    },
-    {
-      "title": "gg",
-      "body": "g2",
-      "publish": false,
-      "createdAt": 1701005331561,
       "id": 10
     },
     {
-      "title": "gg",
-      "body": "g2",
+      "title": "d",
+      "body": "d",
       "publish": false,
-      "createdAt": 1701005331561,
+      "createdAt": 1701121695724,
       "id": 11
     },
     {
-      "title": "dg",
-      "body": "5",
-      "publish": false,
-      "createdAt": 1701047126510,
-      "id": 13
-    },
-    {
       "title": "1",
-      "body": "ㅇ",
-      "publish": false,
-      "createdAt": 1701047881704,
-      "id": 14
-    },
-    {
-      "title": "ㅇ",
-      "body": "ㅎ",
-      "publish": true,
-      "createdAt": 1701047890152,
-      "id": 15
-    },
-    {
-      "title": "ㄴ",
       "body": "2",
-      "publish": true,
-      "createdAt": 1701047893884,
-      "id": 16
-    },
-    {
-      "title": "5",
-      "body": "ㅎ",
       "publish": false,
-      "createdAt": 1701047900226,
-      "id": 17
-    },
-    {
-      "title": "ㅗ",
-      "body": "1",
-      "publish": true,
-      "createdAt": 1701047910838,
-      "id": 18
-    },
-    {
-      "title": "ㅎ",
-      "body": "1",
-      "publish": true,
-      "createdAt": 1701047937821,
-      "id": 19
-    },
-    {
-      "title": "ㅗ",
-      "body": "ㅗ",
-      "publish": true,
-      "createdAt": 1701047986991,
-      "id": 20
-    },
-    {
-      "title": "ㅗ",
-      "body": "ㅗ",
-      "publish": true,
-      "createdAt": 1701047990795,
-      "id": 21
-    },
-    {
-      "title": "ㅗ",
-      "body": "ㅗ",
-      "publish": true,
-      "createdAt": 1701047994116,
-      "id": 22
-    },
-    {
-      "title": "ㅗ",
-      "body": "ㅗ",
-      "publish": true,
-      "createdAt": 1701047994116,
-      "id": 23
-    },
-    {
-      "title": "ㅗ",
-      "body": "ㅗ",
-      "publish": true,
-      "createdAt": 1701047994116,
-      "id": 24
-    },
-    {
-      "title": "ㅗ",
-      "body": "ㅗ",
-      "publish": true,
-      "createdAt": 1701047994116,
-      "id": 25
-    },
-    {
-      "title": "ㅗ",
-      "body": "ㅗ",
-      "publish": true,
-      "createdAt": 1701047994116,
-      "id": 26
-    },
-    {
-      "title": "ㅓ",
-      "body": "ㅗ",
-      "publish": true,
-      "createdAt": 1701048067410,
-      "id": 27
+      "createdAt": 1701121712995,
+      "id": 12
     }
   ]
 }
