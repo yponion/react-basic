@@ -1,7 +1,7 @@
 import axios from "axios";
 import {useState, useEffect, useCallback} from "react";
 import Card from "../components/Card";
-import {useHistory, useLocation} from "react-router-dom";
+import {useNavigate, useLocation} from "react-router-dom";
 import LoadingSpinner from "../components/LoadingSpinner";
 import propTypes from "prop-types";
 import Pagination from "./Pagination";
@@ -9,7 +9,7 @@ import useToast from "../hooks/toast";
 
 const BlogList = ({isAdmin}) => {
 
-    const history = useHistory();
+    const navigate = useNavigate();
     const location = useLocation();
     const params = new URLSearchParams(location.search);
     const pageParam = params.get('page');
@@ -19,6 +19,7 @@ const BlogList = ({isAdmin}) => {
     const [numberOfPosts, setNumberOfPosts] = useState(0);
     const [numberOfPages, setNumberOfPages] = useState(0);
     const [searchText, setSearchText] = useState('');
+    const [error, setError] = useState('');
     const {addToast} = useToast();
     const limit = 5;
 
@@ -27,7 +28,7 @@ const BlogList = ({isAdmin}) => {
     }, [numberOfPosts]);
 
     const onClickPageButton = (page) => {
-        history.push(`${location.pathname}?page=${page}`)
+        navigate(`${location.pathname}?page=${page}`)
         setCurrentPage(page);
         getPosts(page);
     }
@@ -46,9 +47,16 @@ const BlogList = ({isAdmin}) => {
         }
         axios.get(`http://localhost:3001/posts`, {
             params
-        }).then((res) => {
+        }).then((res) => {// db에서 데이터를 성곡적으로 가져왔을 경우
             setNumberOfPosts(res.headers['x-total-count']); // x-total-count -> post 개수
             setPosts(res.data);
+            setLoading(false);
+        }).catch(e=>{// db에서 데이터를 성곡적으로 가져오지 못했을 경우
+            setError('Somthing went wrong in database');
+            addToast({
+                text:'Somthing went wromg',
+                type:'danger'
+            })
             setLoading(false);
         })
     }, [isAdmin, searchText])
@@ -61,10 +69,16 @@ const BlogList = ({isAdmin}) => {
     const deleteBlog = (e, id) => {
         e.stopPropagation();
         axios.delete(`http://localhost:3001/posts/${id}`).then(() => {
-            setPosts(prevPosts => prevPosts.filter(post => post.id !== id));
+            // setPosts(prevPosts => prevPosts.filter(post => post.id !== id));
+            getPosts(1);
             addToast({
                 text: 'Successfully deleted',
                 type: 'success'
+            });
+        }).catch(e=>{
+            addToast({
+                text:'The blog could not be deleted.',
+                type:'danger'
             });
         });
     }
@@ -81,7 +95,7 @@ const BlogList = ({isAdmin}) => {
                 <Card
                     key={post.id}
                     title={post.title}
-                    onClick={() => history.push(`/blogs/${post.id}`)} // 이것도 stopPropagation 하고싶은데
+                    onClick={() => navigate(`/blogs/${post.id}`)} // 이것도 stopPropagation 하고싶은데
                 >
                     {isAdmin ? <div>
                         <button
@@ -98,10 +112,14 @@ const BlogList = ({isAdmin}) => {
 
     const onSearch = (e) => {
         if (e.key === 'Enter') {
-            history.push(`${location.pathname}?page=1`)
+            navigate(`${location.pathname}?page=1`)
             setCurrentPage(1);
             getPosts(1);
         }
+    }
+
+    if (error){
+        return <div>{error}</div>
     }
 
     return (

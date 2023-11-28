@@ -1,11 +1,12 @@
 import {useEffect, useState} from "react";
 import axios from "axios";
-import {useHistory, useParams} from "react-router-dom";
+import {useNavigate, useParams} from "react-router-dom";
 import propTypes from "prop-types";
 import useToast from "../hooks/toast";
+import LoadingSpinner from "./LoadingSpinner";
 
 const BlogForm = ({editing}) => {
-    const history = useHistory();
+    const navigate = useNavigate();
     const {id} = useParams();
 
     // 제목
@@ -24,8 +25,10 @@ const BlogForm = ({editing}) => {
     const [titleError, setTitleError] = useState(false);
     const [bodyError, setBodyError] = useState(false);
 
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState('');
 
-    const {addToast} = useToast(); // 오류로 추가. 강의 놓쳤나 강사가 놓쳤나
+    const {addToast} = useToast();
 
     useEffect(() => {
         if (editing) {
@@ -36,7 +39,17 @@ const BlogForm = ({editing}) => {
                 setOriginalBody(res.data.body);
                 setPublish(res.data.publish);
                 setOriginalPublish(res.data.publish);
+                setLoading(false);
+            }).catch(e=>{
+                setError('something went wrong in db');
+                addToast({
+                    text:'something went wrong in db',
+                    type: 'danger'
+                })
+                setLoading(false);
             })
+        }else {
+            setLoading(false);
         }
     }, [id, editing]);
 
@@ -48,9 +61,9 @@ const BlogForm = ({editing}) => {
 
     const goBack = () => {
         if (editing) { // 수정 이였을 땐 블로그 상세 페이지로
-            history.push(`/blogs/${id}`);
+            navigate(`/blogs/${id}`);
         } else { // 이외엔 블로그 리스트 페이지로
-            history.push('/blogs');
+            navigate('/blogs');
         }
     }
 
@@ -80,7 +93,12 @@ const BlogForm = ({editing}) => {
                     // setOriginalTitle(res.data.title); // 오리지널도 변경해줘야 버튼 다시 비활성화 됨
                     // setOriginalBody(res.data.body);
                     // setOriginalPublish(res.data.publish);
-                    history.push(`/blogs/${id}`) // 블로그 상세 페이지로 돌아갈 것이기 때문에 위 주석 3줄은 필요없음
+                    navigate(`/blogs/${id}`) // 블로그 상세 페이지로 돌아갈 것이기 때문에 위 주석 3줄은 필요없음
+                }).catch(e=>{
+                    addToast({
+                        text:'We could not update blog',
+                        type:'danger'
+                    })
                 })
             } else { // create
                 axios.post('http://localhost:3001/posts', {
@@ -93,7 +111,12 @@ const BlogForm = ({editing}) => {
                         type: 'success',
                         text: 'Successfully creaded!'
                     })
-                    // history.push('/admin');
+                    navigate('/admin');
+                }).catch(e=>{
+                    addToast({
+                        text:'We could not create blog',
+                        type:'danger'
+                    })
                 })
             }
         }
@@ -103,6 +126,13 @@ const BlogForm = ({editing}) => {
         setPublish(e.target.checked)
     };
 
+    if (loading){
+        return <LoadingSpinner/>
+    }
+
+    if (error){
+        return <div>{error}</div>
+    }
     return (
         <div>
             <h1>{editing ? 'Edit' : 'Create a blog post'}</h1> {/*수정이라면 Edit, 아니면 Create로 텍스트 지정*/}
