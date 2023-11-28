@@ -2,6 +2,7 @@ import {useEffect, useState} from "react";
 import axios from "axios";
 import {useHistory, useParams} from "react-router-dom";
 import propTypes from "prop-types";
+import useToast from "../hooks/toast";
 
 const BlogForm = ({editing}) => {
     const history = useHistory();
@@ -22,6 +23,9 @@ const BlogForm = ({editing}) => {
     // title, body 미입력시 error메시지 표시하기위한 bool
     const [titleError, setTitleError] = useState(false);
     const [bodyError, setBodyError] = useState(false);
+
+
+    const {addToast} = useToast(); // 오류로 추가. 강의 놓쳤나 강사가 놓쳤나
 
     useEffect(() => {
         if (editing) {

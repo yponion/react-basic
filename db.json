@@ -19,13 +19,6 @@
       "body": "g2",
       "publish": false,
       "createdAt": 1701005331561,
-      "id": 5
-    },
-    {
-      "title": "gg",
-      "body": "g2",
-      "publish": false,
-      "createdAt": 1701005331561,
       "id": 6
     },
     {
@@ -41,13 +34,6 @@
       "publish": false,
       "createdAt": 1701121695724,
       "id": 11
-    },
-    {
-      "title": "1",
-      "body": "2",
-      "publish": false,
-      "createdAt": 1701121712995,
-      "id": 12
     }
   ]
 }
